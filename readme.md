@@ -24,8 +24,7 @@ const config = {
   psm: 3
 }
 
-tesseract
-  .recognize('image.jpg', config)
+tesseract.recognize('image.jpg', config)
   .then(text => {
     console.log('Result:', text)
   })

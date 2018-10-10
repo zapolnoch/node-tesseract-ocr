@@ -19,7 +19,7 @@
   },
   "scripts": {
     "pretest": "standard",
-    "test": "node test/unit.test.js"
+    "test": "node test/unit.js && node test/e2e.js"
   },
   "devDependencies": {
     "rewire": "^4.0.1",
