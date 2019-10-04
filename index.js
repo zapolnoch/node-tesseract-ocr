@@ -22,7 +22,7 @@ function getOptions(config) {
 
   return Object.keys(config)
     .map(key => {
-      if (["debug", "presets"].includes(key)) return
+      if (["debug", "presets", "binary"].includes(key)) return
       if (key === "lang") return `-l ${config[key]}`
       if (ocrOptions.includes(key)) return `--${key} ${config[key]}`
 
