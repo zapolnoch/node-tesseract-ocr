@@ -1,12 +1,13 @@
 {
   "name": "node-tesseract-ocr",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A Node.js wrapper for the Tesseract OCR API",
   "keywords": [
     "ocr",
     "tesseract",
     "text recognition",
-    "optical character recognition"
+    "optical character recognition",
+    "image to text"
   ],
   "license": "MIT",
   "main": "index.js",
