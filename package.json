@@ -19,11 +19,14 @@
     "node": ">=6"
   },
   "scripts": {
-    "pretest": "standard",
+    "pretest": "eslint .",
     "test": "node test/unit.js && node test/e2e.js"
   },
   "devDependencies": {
-    "rewire": "^4.0.1",
-    "standard": "^11.0.1"
+    "eslint": "^6.5.1",
+    "eslint-config-silence": "^0.4.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "prettier": "^1.18.2",
+    "rewire": "^4.0.1"
   }
 }
