@@ -18,7 +18,7 @@ function recognize (filename, config = {}) {
 }
 
 function getOptions (config) {
-  const ocrOptions = ['tessdata-dir', 'user-words', 'user-patterns', 'psm', 'oem']
+  const ocrOptions = ['tessdata-dir', 'user-words', 'user-patterns', 'psm', 'oem', 'dpi']
 
   return Object.keys(config)
     .map(key => {
