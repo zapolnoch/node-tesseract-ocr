@@ -1,3 +1,5 @@
 .editorconfig
+.eslintrc.js
+.prettierrc.json
 .travis.yml
 test

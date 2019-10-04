@@ -1,12 +1,12 @@
-const exec = require('child_process').exec
+const exec = require("child_process").exec
 const log = console.debug
 
-function recognize (filename, config = {}) {
+function recognize(filename, config = {}) {
   const options = getOptions(config)
-  const binary = config.binary || 'tesseract'
+  const binary = config.binary || "tesseract"
 
-  const command = [binary, filename, 'stdout', ...options].join(' ')
-  if (config.debug) log('command', command)
+  const command = [binary, filename, "stdout", ...options].join(" ")
+  if (config.debug) log("command", command)
 
   return new Promise((resolve, reject) => {
     exec(command, (error, stdout, stderr) => {
@@ -17,13 +17,13 @@ function recognize (filename, config = {}) {
   })
 }
 
-function getOptions (config) {
-  const ocrOptions = ['tessdata-dir', 'user-words', 'user-patterns', 'psm', 'oem', 'dpi']
+function getOptions(config) {
+  const ocrOptions = ["tessdata-dir", "user-words", "user-patterns", "psm", "oem", "dpi"]
 
   return Object.keys(config)
     .map(key => {
-      if (['debug', 'presets'].includes(key)) return
-      if (key === 'lang') return `-l ${config[key]}`
+      if (["debug", "presets", "binary"].includes(key)) return
+      if (key === "lang") return `-l ${config[key]}`
       if (ocrOptions.includes(key)) return `--${key} ${config[key]}`
 
       return `-c ${key}=${config[key]}`
@@ -33,5 +33,5 @@ function getOptions (config) {
 }
 
 module.exports = {
-  recognize
+  recognize,
 }
