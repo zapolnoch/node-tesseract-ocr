@@ -3,6 +3,7 @@ language: node_js
 os:
   - linux
   - osx
+  - windows
 
 node_js:
   - 8
@@ -10,7 +11,10 @@ node_js:
   - 12
 
 before_install:
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get update               ; fi
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get install tesseract-ocr; fi
-  - if [ "$TRAVIS_OS_NAME" = "osx"   ]; then brew update                       ; fi
-  - if [ "$TRAVIS_OS_NAME" = "osx"   ]; then brew install tesseract            ; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux"     ]; then sudo apt-get update                ; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux"     ]; then sudo apt-get install tesseract-ocr ; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx"       ]; then brew update                        ; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx"       ]; then brew install tesseract ; fi
+  - if [ "$TRAVIS_OS_NAME" = "windows"   ]; then choco install msys2    ; fi
+  - if [ "$TRAVIS_OS_NAME" = "windows"   ]; then pacman -S mingw-w64-{i686,x86_64}-tesseract-ocr      ; fi
+  - if [ "$TRAVIS_OS_NAME" = "windows"   ]; then pacman -S mingw-w64-{i686,x86_64}-tesseract-data-eng ; fi
