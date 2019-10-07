@@ -20,16 +20,16 @@ function recognize(filename, config = {}) {
 function getOptions(config) {
   const ocrOptions = ["tessdata-dir", "user-words", "user-patterns", "psm", "oem", "dpi"]
 
-  return Object.keys(config)
-    .map(key => {
+  return Object.entries(config)
+    .map(([key, value]) => {
       if (["debug", "presets", "binary"].includes(key)) return
-      if (key === "lang") return `-l ${config[key]}`
-      if (ocrOptions.includes(key)) return `--${key} ${config[key]}`
+      if (key === "lang") return `-l ${value}`
+      if (ocrOptions.includes(key)) return `--${key} ${value}`
 
-      return `-c ${key}=${config[key]}`
+      return `-c ${key}=${value}`
     })
     .concat(config.presets)
-    .filter(key => Boolean(key))
+    .filter(Boolean)
 }
 
 module.exports = {
