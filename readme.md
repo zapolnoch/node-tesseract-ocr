@@ -16,30 +16,28 @@ npm install node-tesseract-ocr
 
 ## Usage
 ```js
-const tesseract = require('node-tesseract-ocr')
+const tesseract = require("node-tesseract-ocr")
 
 const config = {
-  lang: 'eng',
+  lang: "eng",
   oem: 1,
-  psm: 3
+  psm: 3,
 }
 
-tesseract.recognize('image.jpg', config)
+tesseract.recognize("image.jpg", config)
   .then(text => {
-    console.log('Result:', text)
+    console.log("Result:", text)
   })
-  .catch(err => {
-    console.log('error:', err)
+  .catch(error => {
+    console.log(error.message)
   })
 ```
 
 In the config object you can pass any [OCR options](https://github.com/tesseract-ocr/tesseract/wiki/Command-Line-Usage). Also you can pass here any [control parameters](https://github.com/tesseract-ocr/tesseract/wiki/ControlParams) or use ready-made sets of [config files](https://github.com/tesseract-ocr/tesseract/tree/master/tessdata/configs) (like hocr):
 ```js
-tesseract.recognize('image.jpg', {
+const result = await tesseract.recognize("image.jpg", {
   load_system_dawg: 0,
-  tessedit_char_whitelist: '0123456789',
-  presets: ['hocr', 'digits']
-}).then(text => {
-  console.log('result:', text)
+  tessedit_char_whitelist: "0123456789",
+  presets: ["tsv"],
 })
 ```
