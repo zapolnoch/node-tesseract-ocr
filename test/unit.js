@@ -32,15 +32,15 @@ test("filename with spaces", ({ equal, plan }) => {
 
   tesseract
     .recognize("path/to my/pic.jpg")
-    .then(result => equal(result, "tesseract \"path/to my/pic.jpg\" stdout"))
+    .then(result => equal(result, 'tesseract "path/to my/pic.jpg" stdout'))
 })
 
 test("filename with spaces - qouted input", ({ equal, plan }) => {
   plan(1)
 
   tesseract
-    .recognize("\"path/to my/pic.jpg\"")
-    .then(result => equal(result, "tesseract \"path/to my/pic.jpg\" stdout"))
+    .recognize('"path/to my/pic.jpg"')
+    .then(result => equal(result, 'tesseract "path/to my/pic.jpg" stdout'))
 })
 
 test("use presets", ({ equal, plan }) => {

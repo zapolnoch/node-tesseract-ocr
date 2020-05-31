@@ -4,8 +4,6 @@ const log = console.debug
 function recognize(filename, config = {}) {
   const options = getOptions(config)
   const binary = config.binary || "tesseract"
-  
-  // Enclose filepaths with spaces, and without existing qoutes, into qoutes.
   if (filename.match(/^[^"].+( )/)) {
     filename = `"${filename}"`
   }
