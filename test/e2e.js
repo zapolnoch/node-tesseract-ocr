@@ -20,3 +20,11 @@ test("recognize numbers", async assert => {
 
   assert.strictEqual(result.trim(), "5552368")
 })
+
+test("non-latin filename", async assert => {
+  assert.plan(1)
+
+  const result = await recognize("./test/samples/имя файла.png")
+
+  assert.strictEqual(result.trim(), "ok")
+})

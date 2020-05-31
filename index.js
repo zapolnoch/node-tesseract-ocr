@@ -4,11 +4,8 @@ const log = console.debug
 function recognize(filename, config = {}) {
   const options = getOptions(config)
   const binary = config.binary || "tesseract"
-  if (filename.match(/^[^"].+( )/)) {
-    filename = `"${filename}"`
-  }
 
-  const command = [binary, filename, "stdout", ...options].join(" ")
+  const command = [binary, `"${filename}"`, "stdout", ...options].join(" ")
   if (config.debug) log("command", command)
 
   return new Promise((resolve, reject) => {
