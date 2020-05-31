@@ -16,7 +16,7 @@
     "url": "git://github.com/zapolnoch/node-tesseract-ocr.git"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "scripts": {
     "test": "tape test/*.js"
