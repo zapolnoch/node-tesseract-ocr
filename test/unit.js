@@ -27,6 +27,22 @@ test("set language", ({ equal, plan }) => {
     .then(result => equal(result, "tesseract pic.jpg stdout -l eng"))
 })
 
+test("filename with spaces", ({ equal, plan }) => {
+  plan(1)
+
+  tesseract
+    .recognize("path/to my/pic.jpg")
+    .then(result => equal(result, 'tesseract "path/to my/pic.jpg" stdout'))
+})
+
+test("filename with spaces - qouted input", ({ equal, plan }) => {
+  plan(1)
+
+  tesseract
+    .recognize('"path/to my/pic.jpg"')
+    .then(result => equal(result, 'tesseract "path/to my/pic.jpg" stdout'))
+})
+
 test("use presets", ({ equal, plan }) => {
   plan(1)
 
