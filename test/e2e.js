@@ -1,7 +1,7 @@
 const test = require("tape")
 const { recognize } = require("../index.js")
 
-test("recognize text", async assert => {
+test("recognize text", async (assert) => {
   assert.plan(1)
 
   const result = await recognize("./test/samples/file1.png", {
@@ -11,7 +11,7 @@ test("recognize text", async assert => {
   assert.equal(result.trim().toLowerCase(), "success")
 })
 
-test("recognize numbers", async assert => {
+test("recognize numbers", async (assert) => {
   assert.plan(1)
 
   const result = await recognize("./test/samples/file2.png", {
@@ -21,10 +21,12 @@ test("recognize numbers", async assert => {
   assert.strictEqual(result.trim(), "5552368")
 })
 
-test("non-latin filename", async assert => {
+test("non-latin filename", async (assert) => {
   assert.plan(1)
 
-  const result = await recognize("./test/samples/имя файла.png")
+  const result = await recognize("./test/samples/имя файла.png", {
+    tessedit_char_blacklist: "0123456789",
+  })
 
   assert.strictEqual(result.trim(), "ok")
 })

@@ -14,7 +14,7 @@ test("custom binary", ({ equal, plan }) => {
     .recognize("pic.jpg", {
       binary: "tess",
     })
-    .then(result => equal(result, 'tess "pic.jpg" stdout'))
+    .then((result) => equal(result, 'tess "pic.jpg" stdout'))
 })
 
 test("set language", ({ equal, plan }) => {
@@ -24,7 +24,7 @@ test("set language", ({ equal, plan }) => {
     .recognize("pic.jpg", {
       lang: "eng",
     })
-    .then(result => equal(result, 'tesseract "pic.jpg" stdout -l eng'))
+    .then((result) => equal(result, 'tesseract "pic.jpg" stdout -l eng'))
 })
 
 test("filename with spaces", ({ equal, plan }) => {
@@ -32,7 +32,7 @@ test("filename with spaces", ({ equal, plan }) => {
 
   tesseract
     .recognize("path/to my/pic.jpg")
-    .then(result => equal(result, 'tesseract "path/to my/pic.jpg" stdout'))
+    .then((result) => equal(result, 'tesseract "path/to my/pic.jpg" stdout'))
 })
 
 test("use presets", ({ equal, plan }) => {
@@ -42,7 +42,7 @@ test("use presets", ({ equal, plan }) => {
     .recognize("pic.jpg", {
       presets: ["hocr", "digits"],
     })
-    .then(result => equal(result, 'tesseract "pic.jpg" stdout hocr digits'))
+    .then((result) => equal(result, 'tesseract "pic.jpg" stdout hocr digits'))
 })
 
 test("set OCR options", ({ equal, plan }) => {
@@ -57,7 +57,7 @@ test("set OCR options", ({ equal, plan }) => {
       "user-words": "file",
       "user-patterns": "file",
     })
-    .then(result =>
+    .then((result) =>
       equal(
         result,
         'tesseract "pic.jpg" stdout --oem 1 --psm 3 --dpi 300 --tessdata-dir file --user-words file --user-patterns file',
@@ -72,7 +72,7 @@ test("set control params", ({ equal, plan }) => {
     .recognize("pic.jpg", {
       tessedit_char_whitelist: "0123456789",
     })
-    .then(result =>
+    .then((result) =>
       equal(result, 'tesseract "pic.jpg" stdout -c tessedit_char_whitelist=0123456789'),
     )
 })
