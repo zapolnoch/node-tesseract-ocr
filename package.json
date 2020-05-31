@@ -19,6 +19,7 @@
     "node": ">=10"
   },
   "scripts": {
+    "pretest": "eslint .",
     "test": "tape test/*.js"
   },
   "devDependencies": {

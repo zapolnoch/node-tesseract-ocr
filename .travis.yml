@@ -19,4 +19,4 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" = "osx"     ]; then brew update                        ; fi
   - if [ "$TRAVIS_OS_NAME" = "osx"     ]; then brew install tesseract             ; fi
   - if [ "$TRAVIS_OS_NAME" = "windows" ]; then choco install tesseract --pre      ; fi
-  - if [ "$TRAVIS_OS_NAME" = "windows" ]; then *refreshpath                       ; fi
+  - if [ "$TRAVIS_OS_NAME" = "windows" ]; then refreshpath                        ; fi
