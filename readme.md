@@ -1,7 +1,7 @@
 # Tesseract OCR for Node.js
 [![Build Status](https://img.shields.io/travis/zapolnoch/node-tesseract-ocr/master.svg?style=flat-square)](https://travis-ci.org/zapolnoch/node-tesseract-ocr)
 [![npm](https://img.shields.io/npm/v/node-tesseract-ocr.svg?style=flat-square)](https://www.npmjs.com/package/node-tesseract-ocr)
-![npm](https://img.shields.io/npm/dm/node-tesseract-ocr.svg?style=flat-square)
+[![npm](https://img.shields.io/npm/dm/node-tesseract-ocr.svg?style=flat-square)](https://www.npmjs.com/package/node-tesseract-ocr)
 
 ## Installation
 First, you need to install the Tesseract project. Instructions for installing Tesseract for all platforms can be found on [the project site](https://github.com/tesseract-ocr/tesseract/wiki). On Debian/Ubuntu:
