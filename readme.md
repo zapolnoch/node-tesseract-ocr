@@ -18,6 +18,7 @@ npm install node-tesseract-ocr
 ```js
 const tesseract = require("node-tesseract-ocr")
 
+// other options documented below
 const config = {
   lang: "eng",
   oem: 1,
@@ -40,4 +41,19 @@ const result = await tesseract.recognize("image.jpg", {
   tessedit_char_whitelist: "0123456789",
   presets: ["tsv"],
 })
+```
+
+## Available Config Options
+```js
+config = {
+  // debug
+  // will output progress/results to console
+  // default = false
+  debug: true,
+
+  // outputName
+  // will produce file containing results, instead of returning results
+  // default = stdout, returns results
+  outputName: './output/fileName'
+}
 ```
