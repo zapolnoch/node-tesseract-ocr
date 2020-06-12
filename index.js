@@ -4,8 +4,9 @@ const log = console.debug
 function recognize(filename, config = {}) {
   const options = getOptions(config)
   const binary = config.binary || "tesseract"
+  const outputName = config.outputName || 'stdout'
 
-  const command = [binary, `"${filename}"`, "stdout", ...options].join(" ")
+  const command = [binary, `"${filename}"`, outputName, ...options].join(" ")
   if (config.debug) log("command", command)
 
   return new Promise((resolve, reject) => {
@@ -22,7 +23,7 @@ function getOptions(config) {
 
   return Object.entries(config)
     .map(([key, value]) => {
-      if (["debug", "presets", "binary"].includes(key)) return
+      if (["debug", "presets", "binary", "outputFile"].includes(key)) return
       if (key === "lang") return `-l ${value}`
       if (ocrOptions.includes(key)) return `--${key} ${value}`
 
