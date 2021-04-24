@@ -46,6 +46,20 @@ tesseract.recognize(img, config)
   })
 ```
 
+or URL:
+
+```js
+const img = fs.readFileSync("https://tesseract.projectnaptha.com/img/eng_bw.png")
+
+tesseract.recognize(img, config)
+  .then(text => {
+    console.log("Result:", text)
+  })
+  .catch(error => {
+    console.log(error.message)
+  })
+```
+
 If you want to process multiple images in a single run, then pass an array: 
 
 ```js
