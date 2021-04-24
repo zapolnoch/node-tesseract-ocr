@@ -1,19 +1,24 @@
 const exec = require("child_process").exec
 const log = console.debug
 
-function recognize(filename, config = {}) {
+function recognize(input, config = {}) {
   const options = getOptions(config)
   const binary = config.binary || "tesseract"
+  const inputOption = Buffer.isBuffer(input) ? "stdin" : `"${input}"`
 
-  const command = [binary, `"${filename}"`, "stdout", ...options].join(" ")
+  const command = [binary, inputOption, "stdout", ...options].join(" ")
   if (config.debug) log("command", command)
 
   return new Promise((resolve, reject) => {
-    exec(command, (error, stdout, stderr) => {
+    const child = exec(command, (error, stdout, stderr) => {
       if (config.debug) log(stderr)
       if (error) reject(error)
       resolve(stdout)
     })
+    if (inputOption === 'stdin') {
+      child.stdin.write(input)
+      child.stdin.end()
+    }
   })
 }
 

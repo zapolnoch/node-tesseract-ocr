@@ -32,6 +32,27 @@ tesseract.recognize("image.jpg", config)
     console.log(error.message)
   })
 ```
+Also you can pass Buffer:
+
+```js
+const tesseract = require("node-tesseract-ocr")
+
+const config = {
+  lang: "eng",
+  oem: 1,
+  psm: 3,
+}
+
+const img = fs.readFileSync("image.jpg")
+
+tesseract.recognize(img, config)
+  .then(text => {
+    console.log("Result:", text)
+  })
+  .catch(error => {
+    console.log(error.message)
+  })
+```
 
 In the config object you can pass any [OCR options](https://github.com/tesseract-ocr/tesseract/wiki/Command-Line-Usage). Also you can pass here any [control parameters](https://github.com/tesseract-ocr/tesseract/wiki/ControlParams) or use ready-made sets of [config files](https://github.com/tesseract-ocr/tesseract/tree/master/tessdata/configs) (like hocr):
 ```js
