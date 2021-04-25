@@ -49,7 +49,7 @@ tesseract.recognize(img, config)
 or URL:
 
 ```js
-const img = fs.readFileSync("https://tesseract.projectnaptha.com/img/eng_bw.png")
+const img = "https://tesseract.projectnaptha.com/img/eng_bw.png"
 
 tesseract.recognize(img, config)
   .then(text => {
