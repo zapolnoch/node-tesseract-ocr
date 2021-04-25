@@ -35,17 +35,37 @@ tesseract.recognize("image.jpg", config)
 Also you can pass Buffer:
 
 ```js
-const tesseract = require("node-tesseract-ocr")
-
-const config = {
-  lang: "eng",
-  oem: 1,
-  psm: 3,
-}
-
 const img = fs.readFileSync("image.jpg")
 
 tesseract.recognize(img, config)
+  .then(text => {
+    console.log("Result:", text)
+  })
+  .catch(error => {
+    console.log(error.message)
+  })
+```
+
+or URL:
+
+```js
+const img = "https://tesseract.projectnaptha.com/img/eng_bw.png"
+
+tesseract.recognize(img, config)
+  .then(text => {
+    console.log("Result:", text)
+  })
+  .catch(error => {
+    console.log(error.message)
+  })
+```
+
+If you want to process multiple images in a single run, then pass an array: 
+
+```js
+const images = ["./test/samples/file1.png", "./test/samples/file2.png"]
+
+tesseract.recognize(images, config)
   .then(text => {
     console.log("Result:", text)
   })

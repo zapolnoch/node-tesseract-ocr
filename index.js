@@ -4,9 +4,10 @@ const log = console.debug
 function recognize(input, config = {}) {
   const options = getOptions(config)
   const binary = config.binary || "tesseract"
-  const inputOption = Buffer.isBuffer(input) ? "stdin" : `"${input}"`
-
+  const inputOption =
+    typeof input === "string" && !input.match(/^https?:\/\//) ? `"${input}"` : "stdin"
   const command = [binary, inputOption, "stdout", ...options].join(" ")
+
   if (config.debug) log("command", command)
 
   return new Promise((resolve, reject) => {
@@ -15,11 +16,20 @@ function recognize(input, config = {}) {
       if (error) reject(error)
       resolve(stdout)
     })
-    if (inputOption === "stdin") {
-      child.stdin.write(input)
-      child.stdin.end()
-    }
+    if (inputOption === "stdin") pipeInput(input, child)
   })
+}
+
+function pipeInput(input, child) {
+  if (typeof input === "string") {
+    const protocol = input.match(/^(.*?):/)[1]
+    return require(protocol).get(input, (response) => {
+      response.pipe(child.stdin)
+    })
+  }
+  if (Array.isArray(input)) input = Buffer.from(input.join("\n"), "utf-8")
+  child.stdin.write(input)
+  child.stdin.end()
 }
 
 function getOptions(config) {
