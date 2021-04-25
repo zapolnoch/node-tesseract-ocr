@@ -15,7 +15,7 @@ function recognize(input, config = {}) {
       if (error) reject(error)
       resolve(stdout)
     })
-    if (inputOption === 'stdin') {
+    if (inputOption === "stdin") {
       child.stdin.write(input)
       child.stdin.end()
     }
