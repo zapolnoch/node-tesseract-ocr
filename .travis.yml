@@ -2,12 +2,13 @@ language: node_js
 
 os:
   - linux
-  - osx
+  # - osx
 
 node_js:
   - 10
   - 12
   - 14
+  - 16
 
 before_install:
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get update                ; fi
