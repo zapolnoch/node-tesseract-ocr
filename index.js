@@ -4,8 +4,8 @@ const log = console.debug
 function recognize(input, config = {}) {
   const options = getOptions(config)
   const binary = config.binary || "tesseract"
-  const inputOption =
-    typeof input === "string" && !input.match(/^https?:\/\//) ? `"${input}"` : "stdin"
+  const isSingleLocalFile = typeof input === "string" && !input.match(/^https?:\/\//)
+  const inputOption = isSingleLocalFile ? `"${input}"` : "stdin"
   const command = [binary, inputOption, "stdout", ...options].join(" ")
 
   if (config.debug) log("command", command)
@@ -27,6 +27,7 @@ function pipeInput(input, child) {
       response.pipe(child.stdin)
     })
   }
+
   if (Array.isArray(input)) input = Buffer.from(input.join("\n"), "utf-8")
   child.stdin.write(input)
   child.stdin.end()

@@ -5,5 +5,6 @@ module.exports = {
 
   rules: {
     "prettier/prettier": "error",
+    "global-require": "off",
   },
 }
