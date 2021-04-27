@@ -2,29 +2,35 @@ const fs = require("fs")
 const test = require("tape")
 const { recognize } = require("../index.js")
 
-test("recognize text from stream", async (assert) => {
+test("recognize from stream", async (assert) => {
   assert.plan(1)
 
   const img = fs.readFileSync("./test/samples/file1.png")
-  const result = await recognize(img, { lang: "eng" })
+  const result = await recognize(img)
 
   assert.equal(result.trim().toLowerCase(), "success")
 })
 
-test("recognize numbers from stream", async (assert) => {
+test("recognize from URL stream", async (assert) => {
   assert.plan(1)
 
-  const img = fs.readFileSync("./test/samples/file2.png")
-  const result = await recognize(img, { tessedit_char_whitelist: "0123456789" })
+  const img = "https://upload.wikimedia.org/wikipedia/commons/d/d4/Miller_font.png"
+  const result = await recognize(img)
 
-  assert.strictEqual(result.trim(), "5552368")
+  assert.strictEqual(result.trim(), "Miller")
 })
 
-test("stream from non-latin filename", async (assert) => {
+test("recognize array", async (assert) => {
   assert.plan(1)
 
-  const img = fs.readFileSync("./test/samples/имя файла.png")
-  const result = await recognize(img, { tessedit_char_blacklist: "0123456789" })
+  const imgs = ["./test/samples/file1.png", "./test/samples/file2.png"]
+  const result = await recognize(imgs)
 
-  assert.strictEqual(result.trim(), "ok")
+  assert.equal(
+    result
+      .trim()
+      .replace(/[\r\n\f]/g, "")
+      .toLowerCase(),
+    "success5552368",
+  )
 })
