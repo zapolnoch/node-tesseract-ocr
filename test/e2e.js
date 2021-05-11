@@ -1,5 +1,5 @@
 const test = require("tape")
-const { recognize } = require("../index.js")
+const { recognize } = require("../src/index.js")
 
 test("recognize text", async (assert) => {
   assert.plan(1)

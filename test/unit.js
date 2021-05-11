@@ -1,6 +1,6 @@
 const test = require("tape")
 const rewire = require("rewire")
-const tesseract = rewire("../index.js")
+const tesseract = rewire("../src/index.js")
 
 // Mock child_process
 tesseract.__set__("exec", (path, cb) => {

@@ -1,6 +1,11 @@
 const exec = require("child_process").exec
 const log = console.debug
 
+/**
+ * @param input - URL, local image path or Buffer
+ * @param config - any OCR options and control parameters
+ * @returns default output format is text
+ */
 function recognize(input, config = {}) {
   const options = getOptions(config)
   const binary = config.binary || "tesseract"
@@ -44,7 +49,7 @@ function getOptions(config) {
 
       return `-c ${key}=${value}`
     })
-    .concat(config.presets)
+    .concat(config.presets) // options -l and --psm must occur before any CONFIGFILE
     .filter(Boolean)
 }
 

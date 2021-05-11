@@ -1,6 +1,6 @@
 {
   "name": "node-tesseract-ocr",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "A Node.js wrapper for the Tesseract OCR API",
   "keywords": [
     "ocr",
@@ -10,7 +10,8 @@
     "image to text"
   ],
   "license": "MIT",
-  "main": "index.js",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git://github.com/zapolnoch/node-tesseract-ocr.git"
