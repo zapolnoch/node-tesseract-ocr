@@ -25,72 +25,61 @@ npm install node-tesseract-ocr
 const tesseract = require("node-tesseract-ocr")
 
 const config = {
-  lang: "eng",
-  oem: 1,
+  lang: "eng", // default
+  oem: 3,
   psm: 3,
 }
 
-tesseract
-  .recognize("image.jpg", config)
-  .then((text) => {
+async function main() {
+  try {
+    const text = await tesseract.recognize("image.jpg", config)
     console.log("Result:", text)
-  })
-  .catch((error) => {
+  } catch (error) {
     console.log(error.message)
-  })
+  }
+}
+
+main()
 ```
 
-Also you can pass Buffer:
-
-```js
-const img = fs.readFileSync("image.jpg")
-
-tesseract
-  .recognize(img, config)
-  .then((text) => {
-    console.log("Result:", text)
-  })
-  .catch((error) => {
-    console.log(error.message)
-  })
-```
-
-or URL:
+Also you can pass URL:
 
 ```js
 const img = "https://tesseract.projectnaptha.com/img/eng_bw.png"
+const text = await tesseract.recognize(img)
+```
 
-tesseract
-  .recognize(img, config)
-  .then((text) => {
-    console.log("Result:", text)
-  })
-  .catch((error) => {
-    console.log(error.message)
-  })
+or Buffer:
+
+```js
+const tesseract = require("node-tesseract-ocr")
+const fs = require("fs/promises")
+
+async function main() {
+  const img = await fs.readFile("image.jpg")
+  const text = await tesseract.recognize(img)
+
+  console.log("Result:", text)
+}
 ```
 
 If you want to process multiple images in a single run, then pass an array:
 
 ```js
-const images = ["./test/samples/file1.png", "./test/samples/file2.png"]
-
-tesseract
-  .recognize(images, config)
-  .then((text) => {
-    console.log("Result:", text)
-  })
-  .catch((error) => {
-    console.log(error.message)
-  })
+const images = ["./samples/file1.png", "./samples/file2.png"]
+const text = await tesseract.recognize(images)
 ```
 
 In the config object you can pass any [OCR options](https://github.com/tesseract-ocr/tesseract/blob/master/doc/tesseract.1.asc#options). Also you can pass here any [control parameters](https://tesseract-ocr.github.io/tessdoc/tess3/ControlParams) or use ready-made sets of [config files](https://github.com/tesseract-ocr/tesseract/tree/master/tessdata/configs) (like hocr):
 
 ```js
-const result = await tesseract.recognize("image.jpg", {
+await tesseract.recognize("image.jpg", {
   load_system_dawg: 0,
   tessedit_char_whitelist: "0123456789",
   presets: ["tsv"],
 })
 ```
+
+## Alternatives
+
+If you want to use Tesseract in the browser, choose [Tesseract.js](https://github.com/naptha/tesseract.js) package, which compiles original Tesseract from C to JavaScript WebAssembly. You can also use it in Node.js, but the performance may not be as good.
