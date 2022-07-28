@@ -1,6 +1,8 @@
 const exec = require("child_process").exec
 const log = console.debug
 
+const tesseractBin = require("./find-bin")()
+
 /**
  * @param input - URL, local image path or Buffer
  * @param config - any OCR options and control parameters
@@ -8,7 +10,7 @@ const log = console.debug
  */
 function recognize(input, config = {}) {
   const options = getOptions(config)
-  const binary = config.binary || "tesseract"
+  const binary = `"${config.binary || tesseractBin}"`
   const isSingleLocalFile = typeof input === "string" && !input.match(/^https?:\/\//)
   const inputOption = isSingleLocalFile ? `"${input}"` : "stdin"
   const command = [binary, inputOption, "stdout", ...options].join(" ")
