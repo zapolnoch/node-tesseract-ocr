@@ -12,11 +12,14 @@ function recognize(input, config = {}) {
   const isSingleLocalFile = typeof input === "string" && !input.match(/^https?:\/\//)
   const inputOption = isSingleLocalFile ? `"${input}"` : "stdin"
   const command = [binary, inputOption, "stdout", ...options].join(" ")
+  const execOptions = {
+    maxBuffer: 4 * 1024 * 1024
+  }
 
   if (config.debug) log("command", command)
 
   return new Promise((resolve, reject) => {
-    const child = exec(command, (error, stdout, stderr) => {
+    const child = exec(command, execOptions, (error, stdout, stderr) => {
       if (config.debug) log(stderr)
       if (error) reject(error)
       resolve(stdout)
