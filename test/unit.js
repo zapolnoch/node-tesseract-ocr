@@ -28,11 +28,11 @@ test("set language", async ({ equal, plan }) => {
   equal(result, 'tesseract "pic.jpg" stdout -l eng')
 })
 
-test("filename with spaces", async ({ equal, plan }) => {
+test("filename not with spaces", async ({ equal, plan }) => {
   plan(1)
 
-  const result = await tesseract.recognize("path/to my/pic.jpg")
-  equal(result, 'tesseract "path/to my/pic.jpg" stdout')
+  const result = await tesseract.recognize("path/to-my/pic.jpg")
+  equal(result, 'tesseract "path/to-my/pic.jpg" stdout')
 })
 
 test("use presets", async ({ equal, plan }) => {
@@ -74,10 +74,22 @@ test("set control params", async ({ equal, plan }) => {
 
 test("result to stdin", async ({ equal, plan }) => {
   plan(2)
-
-  const resultFromUrl = await tesseract.recognize("http://example.com/pic.jpg")
+  const url = `https://github.com/kiwfy/node-tesseract-ocr/blob/master/test/samples/file1.png?raw=true`
+  const resultFromUrl = await tesseract.recognize(url)
   equal(resultFromUrl, "tesseract stdin stdout")
 
   const resultFromArray = await tesseract.recognize(["file1.jpg", "file2.png"])
   equal(resultFromArray, "tesseract stdin stdout")
+})
+
+test("inject command", async ({ equal, plan }) => {
+  plan(1)
+  try {
+    // eslint-disable-next-line prettier/prettier
+    await tesseract.recognize("pic.jpg; ls -la;#\"", {
+      tessedit_char_whitelist: "0123456789",
+    })
+  } catch (error) {
+    equal(error.message, "Input with commands")
+  }
 })

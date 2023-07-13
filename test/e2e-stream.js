@@ -14,10 +14,10 @@ test("recognize from stream", async (assert) => {
 test("recognize from URL stream", async (assert) => {
   assert.plan(1)
 
-  const img = "https://upload.wikimedia.org/wikipedia/commons/d/d4/Miller_font.png"
+  const img = `https://tesseract-ocr.github.io/tessdoc/images/bilingual.png`
   const result = await recognize(img)
 
-  assert.strictEqual(result.trim(), "Miller")
+  assert.strictEqual(result.trim(), "fect S 3tatsht\nHINDI TO\nENGLISH")
 })
 
 test("recognize array", async (assert) => {

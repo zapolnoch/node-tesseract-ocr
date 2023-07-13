@@ -31,7 +31,10 @@
     "eslint-plugin-prettier": "^3.4.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.2.1",
-    "rewire": "^5.0.0",
+    "rewire": "^6.0.0",
     "tape": "^5.2.2"
+  },
+  "dependencies": {
+    "shell-quote": "^1.8.1"
   }
 }

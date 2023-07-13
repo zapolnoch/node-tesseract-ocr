@@ -1,5 +1,6 @@
 const exec = require("child_process").exec
 const log = console.debug
+const parseShellQuote = require("shell-quote").parse
 
 /**
  * @param input - URL, local image path or Buffer
@@ -10,6 +11,7 @@ function recognize(input, config = {}) {
   const options = getOptions(config)
   const binary = config.binary || "tesseract"
   const isSingleLocalFile = typeof input === "string" && !input.match(/^https?:\/\//)
+  isNotAllowCommand(isSingleLocalFile, input)
   const inputOption = isSingleLocalFile ? `"${input}"` : "stdin"
   const command = [binary, inputOption, "stdout", ...options].join(" ")
 
@@ -21,7 +23,13 @@ function recognize(input, config = {}) {
       if (error) reject(error)
       resolve(stdout)
     })
-    if (inputOption === "stdin") pipeInput(input, child)
+    child.stdin.on("error", (error) => {
+      if (config.debug) log("Erro no stdin:", error)
+      reject(error)
+    })
+    if (inputOption === "stdin") {
+      pipeInput(input, child)
+    }
   })
 }
 
@@ -34,6 +42,7 @@ function pipeInput(input, child) {
   }
 
   if (Array.isArray(input)) input = Buffer.from(input.join("\n"), "utf-8")
+
   child.stdin.write(input)
   child.stdin.end()
 }
@@ -51,6 +60,12 @@ function getOptions(config) {
     })
     .concat(config.presets) // options -l and --psm must occur before any CONFIGFILE
     .filter(Boolean)
+}
+
+function isNotAllowCommand(isSingleLocalFile, input) {
+  if (isSingleLocalFile && parseShellQuote(input).length > 1) {
+    throw new Error("Input with commands")
+  }
 }
 
 module.exports = {
